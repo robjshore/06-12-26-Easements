@@ -55,10 +55,10 @@ Each cell lists the **purpose categories** present for that relationship (see Se
 
 | servient \ dominant | **RC** | **PK** | **CM** | **B13** | **CITY** | **ROGERS** | **ENBRIDGE** | **Total** |
 |---|---|---|---|---|---|---|---|---|
-| **RC** | · | ACCESS<br>CONSTR<br>UTIL<br>SUPPORT<br>EGRESS<br>CIRC<br>TEMPCON*°<br>SIGN | ACCESS<br>CONSTR<br>UTIL<br>SUPPORT<br>EGRESS<br>CIRC<br>WASTE<br>TEMPCON*°<br>SIGN* | ACCESS*<br>CONSTR*<br>UTIL<br>SUPPORT*<br>EGRESS*<br>TEMPCON*°<br>TEMPCON*<br>TEMPCON° | THIRDPARTY<br>SUPPORT | THIRDPARTY | THIRDPARTY |
+| **RC** | · | ACCESS<br>CONSTR<br>UTIL<br>SUPPORT<br>EGRESS<br>CIRC<br>TEMPCON*°<br>SIGN | ACCESS<br>CONSTR<br>UTIL<br>SUPPORT<br>EGRESS<br>CIRC<br>WASTE<br>TEMPCON*°<br>CIRC*<br>SIGN* | ACCESS*<br>CONSTR*<br>UTIL<br>SUPPORT*<br>EGRESS*<br>TEMPCON*°<br>TEMPCON*<br>TEMPCON° | THIRDPARTY<br>SUPPORT | THIRDPARTY | THIRDPARTY |
 | **PK** | ACCESS<br>CONSTR<br>UTIL<br>SUPPORT<br>EGRESS<br>WASTE<br>TEMPCON° | · | · | · | · | · | · |
-| **CM** | ACCESS<br>CONSTR<br>UTIL<br>SUPPORT<br>EGRESS<br>WASTE<br>TEMPCON°<br>CIRC | · | · | · | · | · | · |
-| **B13** | ACCESS<br>CONSTR<br>UTIL<br>SUPPORT<br>EGRESS<br>CIRC<br>AMENITY | · | · | · | · | · | · |
+| **CM** | ACCESS<br>CONSTR<br>UTIL<br>SUPPORT<br>EGRESS<br>WASTE<br>TEMPCON°<br>CIRC* | · | · | · | · | · | · |
+| **B13** | ACCESS*<br>CONSTR*<br>UTIL*<br>SUPPORT<br>EGRESS<br>CIRC<br>AMENITY | · | · | · | · | · | · |
 | **ADJ** | REGISTERED | · | · | · | · | · | · |
 
 Legend: `*` = contains a REQUIRED?-flagged easement · `°` = contains a temporary easement.
@@ -71,6 +71,7 @@ Legend: `*` = contains a REQUIRED?-flagged easement · `°` = contains a tempora
 |----|----------------------|---------|---------|
 | `R-PK-7` | RC → PK | TEMPCON | TEMP underground garage ramp access for Parking |
 | `R-CM-8` | RC → CM | TEMPCON | TEMP underground garage ramp access for Commercial |
+| `R-CM-9` | RC → CM | CIRC | Access for leasehold improvements / building systems (Commercial) |
 | `R-CM-10` | RC → CM | SIGN | Signage for Commercial |
 | `R-B13-1` | RC → B13 | ACCESS | Access & servicing for Blocks 1 & 3 |
 | `R-B13-2` | RC → B13 | CONSTR | Construction & facilitation for Blocks 1 & 3 |
@@ -80,6 +81,10 @@ Legend: `*` = contains a REQUIRED?-flagged easement · `°` = contains a tempora
 | `R-B13-7` | RC → B13 | TEMPCON | Shoring / caissons / tie-backs for Blocks 1 & 3 |
 | `R-B13-8` | RC → B13 | TEMPCON | TEMP crane swing for Blocks 1 & 3 |
 | `R-B13-9` | RC → B13 | TEMPCON | TEMP excavation / fill / storage for Blocks 1 & 3 |
+| `T-CM-9` | CM → RC | CIRC | Pedestrian circulation over Commercial (for RC) |
+| `T-B13-1` | B13 → RC | ACCESS | Access & servicing over Blocks 1 & 3 (for RC) |
+| `T-B13-2` | B13 → RC | CONSTR | Construction & facilitation over Blocks 1 & 3 (for RC) |
+| `T-B13-3` | B13 → RC | UTIL | Utilities & services over Blocks 1 & 3 (for RC) (8 systems) |
 
 ### 5b. Placeholder / unassigned instrument numbers
 
@@ -89,6 +94,12 @@ Legend: `*` = contains a REQUIRED?-flagged easement · `°` = contains a tempora
 | `S3` | Enbridge Gas Distribution Inc. | ATXXXXXXX [Enbridge] |
 | `S4` | City of Toronto | ATXXXXXXX [support for Pedestrian Mews A] |
 | `S5` | City of Toronto | ATXXXXXXX [support for Private Street A] |
+
+### 5c. Open drafting questions / comments (from the source)
+
+| ID | Relationship | Question |
+|----|--------------|----------|
+| `R-PK-6` | RC → PK | OPEN QUESTION (source): How are the PARKING LANDS intended to handle their garbage? Will they share the at-grade loading area? Will they share the commercial waste rooms? (No waste/loading easement is currently granted to the Parking Lands.) |
 
 ## 6. Full easement register (lossless detail)
 
@@ -195,6 +206,7 @@ Grouped by relationship. Every record preserves all source detail: scope (parts)
 - **Scope:** common elements · **Levels:** Level 1
 - **Duration:** permanent
 - **Use:** Pedestrian and where practical vehicular (emergency vehicles, construction vehicles, service vehicles, garbage and recycling collection vehicles, garbage tractor, equipment, materials, machinery and personnel) ingress and egress in/over/along the at-grade driveways and designated at-grade exterior walkways; including for transporting goods and materials.
+- **⚠ Open question:** OPEN QUESTION (source): How are the PARKING LANDS intended to handle their garbage? Will they share the at-grade loading area? Will they share the commercial waste rooms? (No waste/loading easement is currently granted to the Parking Lands.)
 - **Provisos:** INTERRUPT (see Section 7)
 
 #### `R-PK-7` · Temporary construction works — TEMP underground garage ramp access for Parking  — **REQUIRED?** · _temporary_
@@ -286,7 +298,7 @@ Grouped by relationship. Every record preserves all source detail: scope (parts)
 - **Use:** Pedestrian and where practical all manner of vehicular (emergency vehicles, construction vehicles, service vehicles, garbage and recycling collection vehicles, garbage tractor, equipment, materials, machinery and personnel) ingress and egress along the temporary underground garage ramp; for transporting goods and materials, and garbage, recycling materials, organics, oversized refuse and containers to/from the shared at-grade loading area and commercial waste rooms on P1. Marked 'REQUIRED?' in source.
 - **Provisos:** INTERRUPT (see Section 7)
 
-#### `R-CM-9` · Circulation (pedestrian / vehicular) — Access for leasehold improvements / building systems (Commercial)
+#### `R-CM-9` · Circulation (pedestrian / vehicular) — Access for leasehold improvements / building systems (Commercial)  — **REQUIRED?**
 
 - **Category:** Reserving / Subject To (RC burden → project parcel)
 - **Scope:** common elements · **Levels:** Levels 1, 2 and A
@@ -538,7 +550,7 @@ Grouped by relationship. Every record preserves all source detail: scope (parts)
 - **Use:** Pedestrian and where practical all manner of vehicular (emergency vehicles, construction vehicles, service vehicles, garbage and recycling collection vehicles, garbage tractor, equipment, materials, machinery and personnel) ingress and egress along the temporary underground garage ramp; for transporting goods and materials, and garbage, recycling materials, organics, oversized refuse and containers to/from the shared at-grade loading area.
 - **Provisos:** INTERRUPT (see Section 7)
 
-#### `T-CM-9` · Circulation (pedestrian / vehicular) — Pedestrian circulation over Commercial (for RC)
+#### `T-CM-9` · Circulation (pedestrian / vehicular) — Pedestrian circulation over Commercial (for RC)  — **REQUIRED?**
 
 - **Category:** Together With (benefit to RC)
 - **Scope:** PARTS 44 and 50 on RP 66R-35145
@@ -548,7 +560,7 @@ Grouped by relationship. Every record preserves all source detail: scope (parts)
 
 ### B13 → RC &nbsp; <sub>BLOCKS 1 AND 3 LANDS burdened, in favour of RESIDENTIAL CONDO LANDS</sub>
 
-#### `T-B13-1` · Access & servicing — Access & servicing over Blocks 1 & 3 (for RC)
+#### `T-B13-1` · Access & servicing — Access & servicing over Blocks 1 & 3 (for RC)  — **REQUIRED?**
 
 - **Category:** Together With (benefit to RC)
 - **Scope:** whole of B13
@@ -556,7 +568,7 @@ Grouped by relationship. Every record preserves all source detail: scope (parts)
 - **Use:** Access of persons, vehicles, materials and equipment for servicing, maintenance, repair, operation, construction and reconstruction of the buildings, structures, improvements, utilities and services; including works for retaining walls, street lighting, water, sanitary sewer, storm sewer outfall, rain barrels, structural support grading, noise attenuation works, acoustic fencing, parking, low impact development features and amenity areas, with all appurtenances.
 - **Provisos:** NOTICE, SECURITY, BUSINESS, NO_INTERFERE, NO_STRUCT, INTERRUPT (see Section 7)
 
-#### `T-B13-2` · Construction & facilitation — Construction & facilitation over Blocks 1 & 3 (for RC)
+#### `T-B13-2` · Construction & facilitation — Construction & facilitation over Blocks 1 & 3 (for RC)  — **REQUIRED?**
 
 - **Category:** Together With (benefit to RC)
 - **Scope:** whole of B13
@@ -564,7 +576,7 @@ Grouped by relationship. Every record preserves all source detail: scope (parts)
 - **Use:** Construction, installation, repair, placement, replacement, maintenance, service and inspection of all parts of the buildings, utilities and services, installations, signage, landscaping features and appurtenances; including crossing, penetrating, boring and travelling onto/through any transfer slab, floor slab, ceiling slab, concrete, concrete block and masonry wall and/or drywall enclosure, expansion joints, exterior precast concrete, bollard guards, windows and other similar construction materials/installations.
 - **Provisos:** NOTICE, SECURITY, BUSINESS, NO_INTERFERE, NO_STRUCT, INTERRUPT (see Section 7)
 
-#### `T-B13-3` · Utilities & services — Utilities & services over Blocks 1 & 3 (for RC) (8 systems)
+#### `T-B13-3` · Utilities & services — Utilities & services over Blocks 1 & 3 (for RC) (8 systems)  — **REQUIRED?**
 
 - **Category:** Together With (benefit to RC)
 - **Scope:** whole of B13
@@ -962,6 +974,7 @@ Every `UTIL` easement grants powers over the following eight systems. Project-sp
       "provisos": [
         "INTERRUPT"
       ],
+      "note": "OPEN QUESTION (source): How are the PARKING LANDS intended to handle their garbage? Will they share the at-grade loading area? Will they share the commercial waste rooms? (No waste/loading easement is currently granted to the Parking Lands.)",
       "detail": "Pedestrian and where practical vehicular (emergency vehicles, construction vehicles, service vehicles, garbage and recycling collection vehicles, garbage tractor, equipment, materials, machinery and personnel) ingress and egress in/over/along the at-grade driveways and designated at-grade exterior walkways; including for transporting goods and materials."
     },
     {
@@ -1193,7 +1206,7 @@ Every `UTIL` easement grants powers over the following eight systems. Project-sp
       "termination": null,
       "instrument": null,
       "status": "proposed",
-      "required": false,
+      "required": true,
       "provisos": [
         "NOTICE",
         "NO_INTERFERE",
@@ -1803,7 +1816,7 @@ Every `UTIL` easement grants powers over the following eight systems. Project-sp
       "termination": null,
       "instrument": null,
       "status": "proposed",
-      "required": false,
+      "required": true,
       "provisos": [
         "INTERRUPT"
       ],
@@ -1822,7 +1835,7 @@ Every `UTIL` easement grants powers over the following eight systems. Project-sp
       "termination": null,
       "instrument": null,
       "status": "proposed",
-      "required": false,
+      "required": true,
       "provisos": [
         "NOTICE",
         "SECURITY",
@@ -1846,7 +1859,7 @@ Every `UTIL` easement grants powers over the following eight systems. Project-sp
       "termination": null,
       "instrument": null,
       "status": "proposed",
-      "required": false,
+      "required": true,
       "provisos": [
         "NOTICE",
         "SECURITY",
@@ -1870,7 +1883,7 @@ Every `UTIL` easement grants powers over the following eight systems. Project-sp
       "termination": null,
       "instrument": null,
       "status": "proposed",
-      "required": false,
+      "required": true,
       "provisos": [
         "NOTICE",
         "SECURITY",

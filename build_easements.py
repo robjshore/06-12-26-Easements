@@ -72,6 +72,34 @@ PURPOSES = OrderedDict([
     ("REGISTERED", "Pre-existing registered easement"),
 ])
 
+# Plain-English short label + one-line description for each parcel / purpose,
+# so the visual aids can explain themselves instead of showing bare codes.
+PARCEL_SHORT = {
+    "RC": "Residential Condo", "PK": "Parking", "CM": "Commercial",
+    "B13": "Blocks 1 & 3", "CITY": "City of Toronto", "ROGERS": "Rogers",
+    "ENBRIDGE": "Enbridge", "ADJ": "Adjacent lands",
+}
+PURPOSE_DESC = {
+    "ACCESS":  "Right to enter the other parcel to service, maintain, repair and (re)construct buildings and site works.",
+    "CONSTR":  "Right to build, install, inspect and connect building parts — including boring through slabs and walls.",
+    "UTIL":    "Right to run and maintain building systems through the other parcel (HVAC, electrical, plumbing, fire/life-safety, telecom, water/storm/gas).",
+    "SUPPORT": "Right to structural support from the other parcel's columns, slabs, beams, walls and soil.",
+    "EGRESS":  "Right to use the other parcel's exit stairs and corridors for emergency escape.",
+    "CIRC":    "Right to walk or drive through the other parcel's driveways, walkways, corridors and vestibules.",
+    "WASTE":   "Right to move garbage, recycling and deliveries and to use shared loading / staging areas.",
+    "SIGN":    "Right to place and maintain signage and/or parking meters.",
+    "TEMPCON": "Temporary construction rights — ramps, crane swing, shoring/tie-backs, hoarding, excavation and construction access.",
+    "AMENITY": "Right to use shared amenities (here, at-grade bicycle parking).",
+    "THIRDPARTY": "A utility or municipal easement granted to an outside body (City of Toronto, Rogers, Enbridge).",
+    "REGISTERED": "A pre-existing easement, already registered on title, that benefits the Residential Condo.",
+}
+PURPOSE_SHORT = {
+    "ACCESS": "Access", "CONSTR": "Construction", "UTIL": "Utilities", "SUPPORT": "Support",
+    "EGRESS": "Egress", "CIRC": "Circulation", "WASTE": "Waste/loading", "SIGN": "Signage",
+    "TEMPCON": "Temp. construction", "AMENITY": "Amenity", "THIRDPARTY": "Third-party",
+    "REGISTERED": "Registered",
+}
+
 # ---------------------------------------------------------------------------
 # 3. CANONICAL UTILITY SUB-SYSTEMS  (the enumerated "uses" for UTIL easements)
 #    Captured verbatim ONCE; per-easement additions recorded as deltas.
@@ -248,6 +276,9 @@ EASEMENTS = [
          summary="Pedestrian/vehicular ingress-egress at grade for Parking",
          parts="common elements", levels="Level 1", duration="permanent", termination=None,
          instrument=None, status="proposed", required=False, provisos=["INTERRUPT"],
+         note="OPEN QUESTION (source): How are the PARKING LANDS intended to handle their "
+              "garbage? Will they share the at-grade loading area? Will they share the commercial "
+              "waste rooms? (No waste/loading easement is currently granted to the Parking Lands.)",
          detail="Pedestrian and where practical vehicular (" + VEH_LIST + ") ingress and egress "
                 "in/over/along the at-grade driveways and designated at-grade exterior walkways; "
                 "including for transporting goods and materials."),
@@ -329,7 +360,7 @@ EASEMENTS = [
     dict(id="R-CM-9", cat="RESERVING", servient="RC", dominant="CM", purpose="CIRC",
          summary="Access for leasehold improvements / building systems (Commercial)",
          parts="common elements", levels="Levels 1, 2 and A", duration="permanent",
-         termination=None, instrument=None, status="proposed", required=False,
+         termination=None, instrument=None, status="proposed", required=True,
          provisos=["NOTICE", "NO_INTERFERE", "NO_STRUCT", "INTERRUPT", "CLEARANCE"],
          detail="Pedestrian and where practical vehicular (construction vehicles, service "
                 "vehicles, equipment, materials, machinery and personnel) ingress/egress to "
@@ -546,7 +577,7 @@ EASEMENTS = [
     dict(id="T-CM-9", cat="TOGETHER", servient="CM", dominant="RC", purpose="CIRC",
          summary="Pedestrian circulation over Commercial (for RC)",
          parts="PARTS 44 and 50 on RP 66R-35145", levels=None, duration="permanent",
-         termination=None, instrument=None, status="proposed", required=False,
+         termination=None, instrument=None, status="proposed", required=True,
          provisos=["INTERRUPT"],
          detail="Pedestrian (and where practical equipment, materials, machinery and personnel) "
                 "ingress and egress along the designated at-grade exterior walkways, underground "
@@ -557,19 +588,19 @@ EASEMENTS = [
     dict(id="T-B13-1", cat="TOGETHER", servient="B13", dominant="RC", purpose="ACCESS",
          summary="Access & servicing over Blocks 1 & 3 (for RC)",
          parts="whole of B13", levels=None, duration="permanent", termination=None,
-         instrument=None, status="proposed", required=False,
+         instrument=None, status="proposed", required=True,
          provisos=["NOTICE", "SECURITY", "BUSINESS", "NO_INTERFERE", "NO_STRUCT", "INTERRUPT"],
          detail=ACCESS_USE),
     dict(id="T-B13-2", cat="TOGETHER", servient="B13", dominant="RC", purpose="CONSTR",
          summary="Construction & facilitation over Blocks 1 & 3 (for RC)",
          parts="whole of B13", levels=None, duration="permanent", termination=None,
-         instrument=None, status="proposed", required=False,
+         instrument=None, status="proposed", required=True,
          provisos=["NOTICE", "SECURITY", "BUSINESS", "NO_INTERFERE", "NO_STRUCT", "INTERRUPT"],
          detail=CONSTR_USE),
     dict(id="T-B13-3", cat="TOGETHER", servient="B13", dominant="RC", purpose="UTIL",
          summary="Utilities & services over Blocks 1 & 3 (for RC) (8 systems)",
          parts="whole of B13", levels=None, duration="permanent", termination=None,
-         instrument=None, status="proposed", required=False,
+         instrument=None, status="proposed", required=True,
          provisos=["NOTICE", "SECURITY", "BUSINESS", "NO_INTERFERE", "NO_STRUCT", "INTERRUPT"],
          detail="Utilities & services benefiting the RC Lands (full powers as R-PK-3).",
          util=util(True, {"mechanical": "adds swimming pool equipment"})),
@@ -637,7 +668,7 @@ def assert_rubric(records):
     check("GRANT count == 1", n_grant == 1, str(n_grant))
     check("total == 57", len(records) == 57, str(len(records)))
     n_required = sum(1 for r in records if r["required"])
-    check("REQUIRED? flags == 11", n_required == 11, str(n_required))
+    check("REQUIRED? flags == 16", n_required == 16, str(n_required))
     n_placeholder = sum(1 for r in records if r["status"] == "placeholder")
     check("placeholder instruments == 4", n_placeholder == 4, str(n_placeholder))
     check("every record has non-empty detail", all(r["detail"].strip() for r in records))
@@ -785,6 +816,15 @@ def build_markdown(records):
         if r["status"] == "placeholder":
             A(f"| `{r['id']}` | {PARCELS[r['dominant']]['name']} | {md_escape(r['instrument'])} |")
     A("")
+    notes = [r for r in records if r.get("note")]
+    if notes:
+        A("### 5c. Open drafting questions / comments (from the source)")
+        A("")
+        A("| ID | Relationship | Question |")
+        A("|----|--------------|----------|")
+        for r in notes:
+            A(f"| `{r['id']}` | {r['servient']} → {r['dominant']} | {md_escape(r['note'])} |")
+        A("")
 
     # --- Full register (lossless drill-down) ---
     A("## 6. Full easement register (lossless detail)")
@@ -821,6 +861,8 @@ def build_markdown(records):
             if r["instrument"]:
                 A(f"- **Instrument:** {md_escape(r['instrument'])} ({r['status']})")
             A(f"- **Use:** {md_escape(r['detail'])}")
+            if r.get("note"):
+                A(f"- **⚠ Open question:** {md_escape(r['note'])}")
             if r["purpose"] == "UTIL" and "util" in r:
                 A(f"- **Enumerated systems:**")
                 deltas = r["util"]["deltas"]

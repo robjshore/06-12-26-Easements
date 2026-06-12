@@ -23,7 +23,8 @@ Run:  python3 build_asymmetry.py
 import json
 from collections import OrderedDict, defaultdict
 
-from build_easements import EASEMENTS, PARCELS, PURPOSES, PROVISOS, SYSTEMS
+from build_easements import (EASEMENTS, PARCELS, PURPOSES, PROVISOS, SYSTEMS,
+                             PARCEL_SHORT, PURPOSE_DESC, PURPOSE_SHORT)
 
 PROJECT = ["PK", "CM", "B13"]            # the three project parcels (besides RC)
 PURP_ORDER = [p for p in PURPOSES if p not in ("THIRDPARTY", "REGISTERED")]
@@ -391,6 +392,8 @@ PURP_COLOR = {
 def build_html(an, path="easements_asymmetry.html"):
     payload = {
         "purposes": {p: PURPOSES[p] for p in PURP_ORDER},
+        "purposeDesc": {p: PURPOSE_DESC[p] for p in PURP_ORDER},
+        "short": PARCEL_SHORT,
         "purpColor": PURP_COLOR,
         "provisos": dict(PROVISOS),
         "project": PROJECT,
@@ -416,7 +419,11 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
         --recip:#2e7d32;--burden:#1565c0;--benefit:#ad6800;}
   *{box-sizing:border-box;} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);}
   header{padding:18px 24px;background:var(--accent);color:#fff;}
-  header h1{margin:0 0 4px;font-size:19px;} header p{margin:0;font-size:12.5px;opacity:.85;}
+  header h1{margin:0 0 4px;font-size:19px;} header p{margin:0;font-size:12.5px;opacity:.9;max-width:980px;line-height:1.5;}
+  .explain{margin:16px 24px 0;background:#fff;border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;}
+  .explain h2{margin:0 0 7px;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);}
+  .explain ol{margin:5px 0 4px;padding-left:20px;} .explain li{font-size:12.5px;line-height:1.6;margin:4px 0;}
+  .explain .eg{background:#f4f8fb;border:1px solid #d8e6f0;border-radius:8px;padding:8px 12px;margin-top:8px;font-size:12.5px;line-height:1.5;}
   .wrap{display:flex;gap:18px;align-items:flex-start;padding:18px 24px;flex-wrap:wrap;}
   .panel{background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
   .left{padding:16px;flex:1 1 520px;min-width:480px;} .right{padding:0;flex:1 1 440px;min-width:400px;max-height:84vh;overflow:auto;}
@@ -459,8 +466,18 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 <body>
 <header>
   <h1>Galleria Schedule &lsquo;A&rsquo; &mdash; Easement Asymmetry &amp; Reciprocity</h1>
-  <p>Same purpose, different party: where do the terms diverge, and which rights run both ways? Click a purpose to compare.</p>
+  <p>The same kind of right is often granted to more than one neighbour, and sometimes in both directions. This tool shows where those grants <b>don&rsquo;t match</b> &mdash; a difference that may be deliberate, or may be an oversight worth checking.</p>
 </header>
+
+<div class="explain">
+  <h2>How to read this</h2>
+  <ol>
+    <li><b>RC&rarr;X</b> means the Residential Condo is <b>burdened</b> (gives up the right) in favour of parcel X. <b>X&rarr;RC</b> is the reverse. The parcels are <b>RC</b>&nbsp;Residential&nbsp;Condo, <b>PK</b>&nbsp;Parking, <b>CM</b>&nbsp;Commercial, <b>B13</b>&nbsp;Blocks&nbsp;1&nbsp;&amp;&nbsp;3.</li>
+    <li>A right that appears on <b>both</b> RC&rarr;X and X&rarr;RC is <b>reciprocal</b> (granted both ways). One that appears on only one side runs <b>one direction only</b> &mdash; an asymmetry.</li>
+    <li>Even when a right is granted to several parties, the <b>terms can differ</b> (scope, levels, duration, conditions). <b>Click a purpose</b> to see a side-by-side comparison with the differences highlighted.</li>
+  </ol>
+  <div class="eg">The headline cards below group every difference we found into four kinds: <b>coverage gaps</b> (granted to some but not others), <b>content</b> (same right, different terms), <b>reciprocity</b>, and <b>burden-vs-benefit</b> (the Condo&rsquo;s terms differ depending on whether it&rsquo;s giving or receiving).</div>
+</div>
 
 <div class="findbox" id="findbox"></div>
 
@@ -477,7 +494,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
 
 <script>
 const D = /*__DATA__*/;
-const {purposes,purpColor,provisos,project,burden,benefit,reciprocity,cross,findings,systemsTitle}=D;
+const {purposes,purposeDesc,short,purpColor,provisos,project,burden,benefit,reciprocity,cross,findings,systemsTitle}=D;
 let sel=null;
 
 function marks(list){let s='';if(list.some(e=>e.required))s+=' <span class="mk">*</span>';
@@ -551,7 +568,7 @@ function cmpTable(lane,p){
 function drawDetail(p){
   const recs=reciprocity.filter(r=>r.purpose===p&&r.status);
   let h=`<div class="dp-head"><h2 style="color:${purpColor[p]}">${purposes[p]}</h2>`+
-        `<div class="sub">Cross-party comparison &amp; reciprocity</div></div><div class="dp-body">`;
+        `<div class="sub">${esc(purposeDesc[p]||'')}</div></div><div class="dp-body">`;
   // reciprocity summary
   h+='<div class="rhwrap">';
   project.forEach(x=>{

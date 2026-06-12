@@ -31,6 +31,7 @@ Markers: `*` = REQUIRED?-flagged · `°` = temporary.
 - **Structural support** — under *RC grants (Reserving)*, **REQUIRED? flag** differs by party — PK: no; CM: no; B13: yes.
 - **Emergency pedestrian egress** — under *RC grants (Reserving)*, **REQUIRED? flag** differs by party — PK: no; CM: no; B13: yes.
 - **Circulation (pedestrian / vehicular)** — under *RC grants (Reserving)*, **levels** differs by party — PK: Level 1; CM: Levels 1 and 2 / Levels 1, 2 and A.
+- **Circulation (pedestrian / vehicular)** — under *RC grants (Reserving)*, **REQUIRED? flag** differs by party — PK: no; CM: yes.
 - **Circulation (pedestrian / vehicular)** — under *RC grants (Reserving)*, **provisos** differs by party — PK: INTERRUPT; CM: INTERRUPT / CLEARANCE,INTERRUPT,NOTICE,NO_INTERFERE,NO_STRUCT.
 - **Circulation (pedestrian / vehicular)** — under *RC grants (Reserving)* the **use wording differs** between parties (see comparison).
 - **Signage / parking meters** — under *RC grants (Reserving)*, **levels** differs by party — PK: Levels 1 and A; CM: Levels 1, 2 and A.
@@ -42,8 +43,12 @@ Markers: `*` = REQUIRED?-flagged · `°` = temporary.
 - **Temporary construction works** — under *RC grants (Reserving)*, **termination** differs by party — PK: Terminates upon completion of construction of the permanent underground garage ramp(s) to be situated within the BLOCKS 1 AND 3 LANDS.; CM: Terminates upon completion of construction of the permanent underground garage ramp(s) to be situated within the BLOCKS 1 AND 3 LANDS.; B13: Terminates on the earlier of: (i) 20 years after registration; or (ii) completion of construction of the said buildings, structures and appurtenant services within the BLOCKS 1 AND 3 LANDS. / —.
 - **Temporary construction works** — under *RC grants (Reserving)*, **provisos** differs by party — PK: INTERRUPT; CM: INTERRUPT; B13: INTERRUPT / —.
 - **Temporary construction works** — under *RC grants (Reserving)* the **use wording differs** between parties (see comparison).
+- **Access & servicing** — under *RC receives (Together With)*, **REQUIRED? flag** differs by party — PK: no; CM: no; B13: yes.
+- **Construction & facilitation** — under *RC receives (Together With)*, **REQUIRED? flag** differs by party — PK: no; CM: no; B13: yes.
+- **Utilities & services** — under *RC receives (Together With)*, **REQUIRED? flag** differs by party — PK: no; CM: no; B13: yes.
 - **Circulation (pedestrian / vehicular)** — under *RC receives (Together With)*, **scope** differs by party — CM: specific parts; B13: whole parcel.
 - **Circulation (pedestrian / vehicular)** — under *RC receives (Together With)*, **parts / location** differs by party — CM: PARTS 44 and 50 on RP 66R-35145; B13: whole of B13.
+- **Circulation (pedestrian / vehicular)** — under *RC receives (Together With)*, **REQUIRED? flag** differs by party — CM: yes; B13: no.
 - **Circulation (pedestrian / vehicular)** — under *RC receives (Together With)* the **use wording differs** between parties (see comparison).
 - **Waste, loading & deliveries** — under *RC receives (Together With)*, **parts / location** differs by party — PK: PARTS 31, 33, 34, 35 and 39 on RP 66R-35145; CM: PART 41 on RP 66R-35145 / PART 42 on RP 66R-35145.
 - **Waste, loading & deliveries** — under *RC receives (Together With)* the **use wording differs** between parties (see comparison).
@@ -68,12 +73,12 @@ Rows = purpose. Columns = the six lanes. A purpose present on **both** `RC→X` 
 
 | Purpose | RC→PK | RC→CM | RC→B13 | PK→RC | CM→RC | B13→RC | Reciprocal for |
 |---|---|---|---|---|---|---|---|
-| Access & servicing | ✓ | ✓ | ✓ * | ✓ | ✓ | ✓ | PK, CM, B13 |
-| Construction & facilitation | ✓ | ✓ | ✓ * | ✓ | ✓ | ✓ | PK, CM, B13 |
-| Utilities & services | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | PK, CM, B13 |
+| Access & servicing | ✓ | ✓ | ✓ * | ✓ | ✓ | ✓ * | PK, CM, B13 |
+| Construction & facilitation | ✓ | ✓ | ✓ * | ✓ | ✓ | ✓ * | PK, CM, B13 |
+| Utilities & services | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ * | PK, CM, B13 |
 | Structural support | ✓ | ✓ | ✓ * | ✓ | ✓ | ✓ | PK, CM, B13 |
 | Emergency pedestrian egress | ✓ | ✓ | ✓ * | ✓ | ✓ | ✓ | PK, CM, B13 |
-| Circulation (pedestrian / vehicular) | ✓ | ✓×2 | · | · | ✓ | ✓ | CM |
+| Circulation (pedestrian / vehicular) | ✓ | ✓×2 * | · | · | ✓ * | ✓ | CM |
 | Waste, loading & deliveries | · | ✓ | · | ✓ | ✓×2 | · | CM |
 | Signage / parking meters | ✓ | ✓ * | · | · | · | · | — |
 | Temporary construction works | ✓ * ° | ✓ * ° | ✓×5 * ° | ✓ ° | ✓ ° | · | PK, CM |
@@ -156,6 +161,7 @@ For each purpose, how the terms differ between the project parcels. Only fields 
 - **Easements:** PK: R-PK-6; CM: R-CM-6, R-CM-9; B13: —
 - **# of easements:** **PK** = 1 · **CM** = 2
 - **levels:** **PK** = Level 1 · **CM** = Levels 1 and 2 / Levels 1, 2 and A
+- **REQUIRED? flag:** **PK** = no · **CM** = yes
 - **provisos:** **PK** = INTERRUPT · **CM** = INTERRUPT / CLEARANCE,INTERRUPT,NOTICE,NO_INTERFERE,NO_STRUCT
 - **use wording differs:**
     - *PK:* Pedestrian and where practical vehicular (emergency vehicles, construction vehicles, service vehicles, garbage and recycling collection vehicles, garbage tractor, equipment, materials, machinery and personnel) ingress and egress in/over/along the at-grade driveways and designated at-grade exterior walkways; including for transporting goods and materials.
@@ -196,17 +202,17 @@ For each purpose, how the terms differ between the project parcels. Only fields 
 ### Access & servicing
 - **Present for:** PK, CM, B13  ·  **Absent for:** none
 - **Easements:** PK: T-PK-1; CM: T-CM-1; B13: T-B13-1
-- **Symmetric** across the parties present (no field differences).
+- **REQUIRED? flag:** **PK** = no · **CM** = no · **B13** = yes
 
 ### Construction & facilitation
 - **Present for:** PK, CM, B13  ·  **Absent for:** none
 - **Easements:** PK: T-PK-2; CM: T-CM-2; B13: T-B13-2
-- **Symmetric** across the parties present (no field differences).
+- **REQUIRED? flag:** **PK** = no · **CM** = no · **B13** = yes
 
 ### Utilities & services
 - **Present for:** PK, CM, B13  ·  **Absent for:** none
 - **Easements:** PK: T-PK-3; CM: T-CM-3; B13: T-B13-3
-- **Symmetric** across the parties present (no field differences).
+- **REQUIRED? flag:** **PK** = no · **CM** = no · **B13** = yes
 
 ### Structural support
 - **Present for:** PK, CM, B13  ·  **Absent for:** none
@@ -223,6 +229,7 @@ For each purpose, how the terms differ between the project parcels. Only fields 
 - **Easements:** PK: —; CM: T-CM-9; B13: T-B13-6
 - **scope:** **CM** = specific parts · **B13** = whole parcel
 - **parts / location:** **CM** = PARTS 44 and 50 on RP 66R-35145 · **B13** = whole of B13
+- **REQUIRED? flag:** **CM** = yes · **B13** = no
 - **use wording differs:**
     - *CM:* Pedestrian (and where practical equipment, materials, machinery and personnel) ingress and egress along the designated at-grade exterior walkways, underground garage exit stairwell, corridor and vestibules; for transporting goods and materials.
     - *B13:* Pedestrian and where practical all manner of vehicular (emergency vehicles, construction vehicles, service vehicles, garbage and recycling collection vehicles, garbage tractor, equipment, materials, machinery and personnel) ingress and egress along the at-grade driveways, designated at-grade exterior walkways, underground garage ramps, underground garage drive aisles, underground garage walkways, underground garage exit stairwells, walkways, corridors and vestibules; as necessary for access to/from the underground parking garage within the RC Lands; including transporting goods and materials, and garbage, recycling materials, organics, oversized refuse and containers to/from the shared at-grade loading area (PART 42 on RP 66R-35145).
