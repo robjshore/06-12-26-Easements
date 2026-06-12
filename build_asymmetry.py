@@ -265,7 +265,7 @@ def md_table(headers, rows):
 def cell_mark(ezs):
     if not ezs:
         return "·"
-    s = "✓" if len(ezs) == 1 else f"✓×{len(ezs)}"
+    s = f"✓ {len(ezs)}"   # number of separate easements of this type in this direction
     if any(e["required"] for e in ezs):
         s += " *"
     if any(e["duration"] == "temporary" for e in ezs):
@@ -312,6 +312,10 @@ def build_md(an):
     A("")
     A("Rows = purpose. Columns = the six lanes. A purpose present on **both** `RC→X` and `X→RC` "
       "is **reciprocal** for parcel X; present on only one side is one-directional.")
+    A("")
+    A("**Cell values:** `✓ N` = N separate easements of that type run that direction (e.g. `✓ 5` "
+      "= five distinct easements grouped under one purpose); `·` = none. `*` = at least one needs "
+      "review (REQUIRED?); `°` = at least one is temporary.")
     A("")
     headers = ["Purpose", "RC→PK", "RC→CM", "RC→B13", "PK→RC", "CM→RC", "B13→RC", "Reciprocal for"]
     rows = []
@@ -485,7 +489,8 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   <div class="panel left">
     <h2 class="sec">Coverage &amp; reciprocity grid — click a purpose</h2>
     <div id="grid"></div>
-    <div class="legend">Lanes: <b>RC&rarr;X</b> = RC burdened in favour of X (Reserving) &nbsp;|&nbsp; <b>X&rarr;RC</b> = X burdened in favour of RC (Together With). &nbsp; <span class="mk">*</span> REQUIRED? &nbsp; <span class="mk">&deg;</span> temporary. &nbsp; Green = reciprocal (both directions present).</div>
+    <div class="legend"><b>Reading a cell:</b> the number is how many <b>separate easements</b> of that type run that direction (e.g. &ldquo;&#10003;&nbsp;5&rdquo; = five distinct easements grouped under one purpose). <b>Empty</b> = none.<br>
+    <b>Lanes:</b> <b>RC&rarr;X</b> = Condo burdened in favour of X (it gives up the right) &nbsp;|&nbsp; <b>X&rarr;RC</b> = X burdened in favour of the Condo. &nbsp; <span class="mk">*</span> = at least one needs review (REQUIRED?) &nbsp; <span class="mk">&deg;</span> = at least one is temporary. &nbsp; <b style="color:#2e7d32">Green &ldquo;recip.&rdquo; column</b> = granted both ways.</div>
   </div>
   <div class="panel right" id="detail">
     <div class="note" style="padding:34px 16px;text-align:center;">Select a purpose to see cross-party &amp; reciprocity comparison &rarr;</div>
@@ -500,7 +505,7 @@ let sel=null;
 function marks(list){let s='';if(list.some(e=>e.required))s+=' <span class="mk">*</span>';
   if(list.some(e=>e.duration==='temporary'))s+=' <span class="mk">&deg;</span>';return s;}
 function cell(list){if(!list||!list.length)return {t:'&middot;',cls:''};
-  let t=(list.length===1?'&#10003;':'&#10003;&times;'+list.length)+marks(list);
+  let t=(list.length===1?'&#10003; 1':'&#10003; '+list.length)+marks(list);
   let cls='has'+(list.some(e=>e.required)?' req':'')+(list.some(e=>e.duration==='temporary')?' tmp':'');
   return {t,cls};}
 

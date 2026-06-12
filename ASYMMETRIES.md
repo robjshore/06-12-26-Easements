@@ -71,18 +71,20 @@ Markers: `*` = REQUIRED?-flagged · `°` = temporary.
 
 Rows = purpose. Columns = the six lanes. A purpose present on **both** `RC→X` and `X→RC` is **reciprocal** for parcel X; present on only one side is one-directional.
 
+**Cell values:** `✓ N` = N separate easements of that type run that direction (e.g. `✓ 5` = five distinct easements grouped under one purpose); `·` = none. `*` = at least one needs review (REQUIRED?); `°` = at least one is temporary.
+
 | Purpose | RC→PK | RC→CM | RC→B13 | PK→RC | CM→RC | B13→RC | Reciprocal for |
 |---|---|---|---|---|---|---|---|
-| Access & servicing | ✓ | ✓ | ✓ * | ✓ | ✓ | ✓ * | PK, CM, B13 |
-| Construction & facilitation | ✓ | ✓ | ✓ * | ✓ | ✓ | ✓ * | PK, CM, B13 |
-| Utilities & services | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ * | PK, CM, B13 |
-| Structural support | ✓ | ✓ | ✓ * | ✓ | ✓ | ✓ | PK, CM, B13 |
-| Emergency pedestrian egress | ✓ | ✓ | ✓ * | ✓ | ✓ | ✓ | PK, CM, B13 |
-| Circulation (pedestrian / vehicular) | ✓ | ✓×2 * | · | · | ✓ * | ✓ | CM |
-| Waste, loading & deliveries | · | ✓ | · | ✓ | ✓×2 | · | CM |
-| Signage / parking meters | ✓ | ✓ * | · | · | · | · | — |
-| Temporary construction works | ✓ * ° | ✓ * ° | ✓×5 * ° | ✓ ° | ✓ ° | · | PK, CM |
-| Amenity (bicycle parking) | · | · | · | · | · | ✓ | — |
+| Access & servicing | ✓ 1 | ✓ 1 | ✓ 1 * | ✓ 1 | ✓ 1 | ✓ 1 * | PK, CM, B13 |
+| Construction & facilitation | ✓ 1 | ✓ 1 | ✓ 1 * | ✓ 1 | ✓ 1 | ✓ 1 * | PK, CM, B13 |
+| Utilities & services | ✓ 1 | ✓ 1 | ✓ 1 | ✓ 1 | ✓ 1 | ✓ 1 * | PK, CM, B13 |
+| Structural support | ✓ 1 | ✓ 1 | ✓ 1 * | ✓ 1 | ✓ 1 | ✓ 1 | PK, CM, B13 |
+| Emergency pedestrian egress | ✓ 1 | ✓ 1 | ✓ 1 * | ✓ 1 | ✓ 1 | ✓ 1 | PK, CM, B13 |
+| Circulation (pedestrian / vehicular) | ✓ 1 | ✓ 2 * | · | · | ✓ 1 * | ✓ 1 | CM |
+| Waste, loading & deliveries | · | ✓ 1 | · | ✓ 1 | ✓ 2 | · | CM |
+| Signage / parking meters | ✓ 1 | ✓ 1 * | · | · | · | · | — |
+| Temporary construction works | ✓ 1 * ° | ✓ 1 * ° | ✓ 5 * ° | ✓ 1 ° | ✓ 1 ° | · | PK, CM |
+| Amenity (bicycle parking) | · | · | · | · | · | ✓ 1 | — |
 
 ## 3. Reciprocity map (per parcel × purpose)
 
